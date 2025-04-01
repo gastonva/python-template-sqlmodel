@@ -29,3 +29,21 @@ SQLModel inherits from Pydantic, which impacts its performance. A discussion on 
 ### **Final Thoughts**
 
 Since SQLModel is based on Pydantic—and Pydantic is a standard in FastAPI applications—it can simplify development by making model definitions similar to Pydantic schemas. However, its lack of async support, performance overhead, and compatibility issues with SQLAlchemy models should be carefully considered before using it in production.
+
+## **Resources**
+
+The following resources were used to support this project:
+
+- [SQLModel Official Documentation](https://sqlmodel.tiangolo.com/)
+- [GitHub Issues & Discussions on SQLModel:](https://github.com/fastapi/sqlmodel)
+  - [Issue #594 - Async Support](https://github.com/fastapi/sqlmodel/issues/594)
+  - [Issue #252 - Performance Considerations](https://github.com/fastapi/sqlmodel/issues/252)
+  - [Issue #169 - Relationship Handling](https://github.com/fastapi/sqlmodel/issues/169)
+  - [Issue #85 - SQLModel Limitations](https://github.com/fastapi/sqlmodel/issues/85)
+  - [Issue #330 - Compatibility with SQLAlchemy](https://github.com/fastapi/sqlmodel/issues/330)
+  - [Discussion #582 - Best Practices for SQLModel](https://github.com/fastapi/sqlmodel/discussions/582)
+- [FastAPI + Alembic + SQLModel Async Example](https://github.com/jonra1993/fastapi-alembic-sqlmodel-async/tree/main)
+
+## **Credits**
+
+This repository is based on work by [Xmartlabs](https://github.com/xmartlabs).

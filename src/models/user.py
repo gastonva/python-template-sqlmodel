@@ -4,6 +4,7 @@ from typing import List
 from sqlalchemy import select
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql import Select
+from sqlmodel import select as sqlmodel_select
 
 from src.core.database import AsyncSession, DatedTableMixin, Objects, SQLBase
 
@@ -29,6 +30,12 @@ class User(SQLBase, DatedTableMixin):
         from src.models import Item
 
         statement = select(Item).filter(Item.owner_id == self.id)
+        return statement
+
+    def get_movies(self) -> Select:
+        from src.models import Movie
+
+        statement = sqlmodel_select(Movie).where(Movie.owner_id == self.id)
         return statement
 
     def get_public_items(self) -> Select:

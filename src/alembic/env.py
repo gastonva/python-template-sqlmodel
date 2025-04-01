@@ -3,6 +3,7 @@ from logging.config import fileConfig
 from src import models  # noqa F401
 from src.core.config import settings
 from src.core.database import SQLBase
+from src.core.database_sqlmodel import SQLBaseModel
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
@@ -23,7 +24,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = SQLBase.metadata
+target_metadata = [SQLBase.metadata, SQLBaseModel.metadata]
 config.set_main_option("sqlalchemy.url", DATABASE_URL)
 
 # other values from the config, defined by the needs of env.py,

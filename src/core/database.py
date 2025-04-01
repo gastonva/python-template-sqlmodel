@@ -26,6 +26,35 @@ from src.core.config import settings
 from src.helpers.casing import snakecase
 from src.helpers.sql import random_uuid, utcnow
 
+#######################################################################################################
+# Comments about using SQLModel with an async session                                                 #
+#                                                                                                     #
+# Using an async session with SQLModel is not entirely straightforward because,                       #
+# as of today (2025-04-01), some core async features are not natively implemented in SQLModel.        #
+# For example, SQLModel does not provide a `create_async_engine` method.                              #
+# Therefore, we have to handle it as follows:                                                         #
+#                                                                                                     #
+# 1- Import everything as usual, but AsyncSession should be imported from:                            #
+#        from sqlmodel.ext.asyncio.session import AsyncSession                                        #
+#    Reviewing the source code, this class inherits from:                                             #
+#        sqlalchemy.ext.asyncio.AsyncSession                                                          #
+#    and overrides the `exec` method.                                                                 #
+#                                                                                                     #
+# 2- Keep most things the same, but instead of using `sqlalchemy.orm.Mapped`,                         #
+#    we should use `sqlmodel.Field` (which inherits from `pydantic.Field`).                           #
+#                                                                                                     #
+# 3- `sqlalchemy.orm.DeclarativeBase` does not have a direct equivalent in SQLModel.                  #
+#    Some developers use `sqlmodel.SQLModel`, but it is not exactly the same as `DeclarativeBase`.    #
+#                                                                                                     #
+# 4- To define `TableIdMixin` and `DatedTableMixin`, we still use `sqlalchemy.orm.declarative_mixin`. #
+#    The only difference is that `TableIdMixin` should inherit from `sqlmodel.SQLModel`.              #
+#                                                                                                     #
+# Useful references:                                                                                  #
+# - https://github.com/fastapi/sqlmodel/issues/330                                                    #
+# - https://github.com/fastapi/sqlmodel/discussions/582                                               #
+#######################################################################################################
+
+
 # Async engine and session
 engine: AsyncEngine = create_async_engine(
     url=str(settings.async_database_url),

@@ -37,7 +37,6 @@ admin = Admin(app=app, engine=engine, authentication_backend=authentication_back
 admin.add_view(UserAdmin)
 admin.add_view(ItemAdmin)
 
-
 if __name__ == "__main__":
     import uvicorn
 

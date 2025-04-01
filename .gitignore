@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+*.http
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Other Python related stuff
+.venv
+logs/*
+.ptpython-history
+.mypy_cache
+.pytest_cache
+
+.devcontainer/commandhistory
+!.devcontainer/commandhistory/.gitkeep
+.env
+# Just for those who use nushell
+.env.nu

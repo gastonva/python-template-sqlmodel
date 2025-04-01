@@ -1,0 +1,38 @@
+services:
+  devcontainer:
+    build:
+      context: ../
+      target: devcontainer
+      args:
+        PROJECT_NAME: ${PROJECT_NAME:-python-template}
+        USER: ${USER}
+    ports:
+      - '8000:8000'
+    volumes:
+      - source: ..
+        target: /opt/app/${PROJECT_NAME:-python-template}
+        type: bind
+      - source: ./commandhistory
+        target: /home/${USER}/.commandhistory
+        type: bind
+      - source: cache
+        target: /home/${USER}/.cache
+        type: volume
+    env_file: ../.env
+
+  postgres:
+    image: postgres:16
+    pull_policy: always
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_DB: dev
+      POSTGRES_PASSWORD: dev
+    volumes:
+      - source: postgres
+        target: /var/lib/postgresql/data
+        type: volume
+
+volumes:
+  postgres: {}
+  cache: {}

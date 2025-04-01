@@ -1,0 +1,62 @@
+[project]
+# Project's name must be the same as PROJECT_NAME environment variable used elsewhere.
+name = "python-template"
+version = "0.1.0"
+description = "Xmartlabs' Python project template"
+authors = [{ name = "Xmartlabs", email = "getintouch@xmartlabs.com" }]
+readme = "README.md"
+requires-python = "^3.13"
+
+[tool.poetry]
+# TODO(remer): this can be removed when the source files are moved to project name folder within src
+# Otherwise, poetry build command fails as it expects project's name matches current folder's name
+packages = [{ include = "*", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.13"
+
+alembic = "^1.15.1"
+asyncpg = "^0.30.0"
+bcrypt = "4.3.0"
+email-validator = "^2.2.0"
+fastapi = "^0.115.11"
+fastapi-pagination = "^0.12.26"
+httpx = "^0.28.1"
+itsdangerous = "^2.2.0"
+passlib = "^1.7.4"
+psycopg2 = "^2.9.9"
+ptpython = "^3.0.29"
+pydantic = "^2.10.6"
+pydantic-settings = "^2.8.1"
+python-jose = "^3.4.0"
+sqladmin = "^0.20.1"
+sqlalchemy = "^2.0.39"
+sqlmodel = "^0.0.24"
+uvicorn = "^0.34.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+flake8 = "^7.1.2"
+isort = "^6.0.1"
+mypy = "^1.15.0"
+mypy-extensions = "^1.0.0"
+pycln = "^2.5.0"
+pytest = "^8.3.5"
+pytest-asyncio = "0.26.0"
+mock = "^5.2.0"
+
+[tool.poetry.group.types.dependencies]
+types-passlib = "^1.7.7.20241221"
+types-pyasn1 = "^0.6.0.20250208"
+types-python-jose = "^3.4.0.20250224"
+types-mock = "^5.2.0.20250306"
+typing-inspect = "^0.9.0"
+typing-extensions = "^4.12.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"

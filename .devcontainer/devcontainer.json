@@ -1,0 +1,78 @@
+{
+  "name": "Python Template",
+  "dockerComposeFile": "docker-compose.yaml",
+  "service": "devcontainer",
+  "runServices": [
+    "devcontainer",
+    "postgres"
+  ],
+  "workspaceFolder": "/opt/app/${localEnv:PROJECT_NAME:python-template}",
+  "containerEnv": {
+    "PROJECT": "${localEnv:PROJECT_NAME:python-template}",
+    "USER": "${localEnv:USER}"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/sshd:1": {},
+    "ghcr.io/nils-geistmann/devcontainers-features/zsh:0": {
+      "plugins": "git"
+    }
+  },
+  "remoteUser": "${localEnv:USER}",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-python.black-formatter",
+        "ms-python.flake8",
+        "ms-python.isort",
+        "ms-python.python",
+        "ms-python.mypy-type-checker",
+        "tamasfe.even-better-toml"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.rulers": [
+          120
+        ],
+        "editor.tabSize": 4,
+        "files.insertFinalNewline": true,
+        "files.trimFinalNewlines": true,
+        "files.trimTrailingWhitespace": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": "explicit"
+        },
+        "python.editor.defaultFormatter": "ms-python.black-formatter",
+        "python.testing.unittestEnabled": false,
+        "python.testing.pytestArgs": [
+          "src/tests"
+        ],
+        "python.testing.pytestEnabled": true
+      }
+    },
+    "black-formatter.args": [
+      "--line-length=120"
+    ],
+    "unwantedRecommendations": []
+  },
+  "postCreateCommand": "/opt/app/${localEnv:PROJECT_NAME:python-template}/.devcontainer/devcontainer-create.sh",
+  "postStartCommand": "/opt/app/${localEnv:PROJECT_NAME:python-template}/.devcontainer/devcontainer-start.sh",
+  "forwardPorts": [
+    // Backend API:
+    //   localhost:8000 for accessing on your host
+    "devcontainer:8000",
+    // Postgres:
+    //   localhost:5432 for accessing postgres via local dbeaver/psql client
+    "postgres:5432"
+  ],
+  "portsAttributes": {
+    "5432": {
+      "label": "Postgres",
+      "onAutoForward": "notify"
+    },
+    "8000": {
+      "label": "Backend API",
+      "onAutoForward": "notify"
+    }
+  }
+}
